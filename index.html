@@ -1,0 +1,938 @@
+```html
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sakha Sena Animation | Petualangan Seru & Edukatif Anak</title>
+  
+  <!-- Favicon Emoji -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧸</text></svg>">
+
+  <!-- Google Fonts: Fredoka & Quicksand -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Canvas Confetti Library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <!-- Tailwind Configuration for Kids Palette -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            fredoka: ['Fredoka', 'cursive', 'sans-serif'],
+            quicksand: ['Quicksand', 'sans-serif'],
+          },
+          colors: {
+            sakhablue: {
+              DEFAULT: '#3B82F6',
+              light: '#93C5FD',
+              dark: '#1D4ED8',
+              soft: '#EFF6FF',
+            },
+            senared: {
+              DEFAULT: '#EF4444',
+              light: '#FCA5A5',
+              dark: '#B91C1C',
+              soft: '#FEF2F2',
+            },
+            sunyellow: {
+              DEFAULT: '#FBBF24',
+              light: '#FDE68A',
+              dark: '#D97706',
+              soft: '#FFFBEB',
+            },
+            mintgreen: {
+              DEFAULT: '#10B981',
+              light: '#6EE7B7',
+              dark: '#047857',
+              soft: '#ECFDF5',
+            },
+            lavender: '#8B5CF6'
+          },
+          boxShadow: {
+            'bubbly': '0 10px 0 0 rgba(0,0,0,0.08), 0 15px 25px -5px rgba(0,0,0,0.1)',
+            'bubbly-blue': '0 8px 0 0 #2563EB',
+            'bubbly-red': '0 8px 0 0 #DC2626',
+            'bubbly-yellow': '0 8px 0 0 #D97706',
+            'bubbly-green': '0 8px 0 0 #059669',
+            'card-float': '0 20px 30px -10px rgba(0,0,0,0.07)',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+              '50%': { transform: 'translateY(-12px) rotate(3deg)' },
+            },
+            floatSlow: {
+              '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+              '50%': { transform: 'translateY(-16px) rotate(-4deg)' },
+            },
+            pulseSlow: {
+              '0%, 100%': { transform: 'scale(1)' },
+              '50%': { transform: 'scale(1.05)' },
+            }
+          },
+          animation: {
+            float: 'float 4s ease-in-out infinite',
+            'float-slow': 'floatSlow 6s ease-in-out infinite',
+            'pulse-slow': 'pulseSlow 3s ease-in-out infinite',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background-color: #F8FAFC;
+    }
+    h1, h2, h3, h4, .font-heading {
+      font-family: 'Fredoka', cursive, sans-serif;
+    }
+    /* Subtle cute dot pattern background */
+    .bg-polka {
+      background-image: radial-gradient(#CBD5E1 1.2px, transparent 1.2px);
+      background-size: 24px 24px;
+    }
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F1F5F9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #93C5FD;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #60A5FA;
+    }
+    .toy-slot.drag-over {
+      transform: scale(1.08);
+      border-style: solid !important;
+    }
+  </style>
+</head>
+<body class="bg-polka text-slate-800 antialiased overflow-x-hidden selection:bg-sunyellow selection:text-slate-900">
+
+  <!-- ==================== TOP NAVIGATION BAR ==================== -->
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b-4 border-amber-200 transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Logo Brand -->
+      <a href="#" class="flex items-center gap-3 group focus:outline-none">
+        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-sakhablue to-senared flex items-center justify-center text-white text-2xl shadow-md group-hover:scale-105 transition-transform duration-300">
+          <i class="fa-solid fa-shapes"></i>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-heading text-2xl font-bold tracking-tight text-slate-800 group-hover:text-sakhablue transition-colors leading-none">
+            Sakha<span class="text-senared">&</span>Sena
+          </span>
+          <span class="text-xs font-semibold uppercase tracking-wider text-amber-500 font-heading">
+            Animation Channel
+          </span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Items -->
+      <nav class="hidden md:flex items-center gap-6 font-semibold text-slate-700">
+        <a href="#karakter" class="hover:text-sakhablue transition-colors py-2 px-3 rounded-full hover:bg-sakhablue-soft">Karakter</a>
+        <a href="#video" class="hover:text-sakhablue transition-colors py-2 px-3 rounded-full hover:bg-sakhablue-soft">Video Pilihan</a>
+        <a href="#edukasi" class="hover:text-sakhablue transition-colors py-2 px-3 rounded-full hover:bg-sakhablue-soft">Nilai Edukatif</a>
+        <a href="#minigame" class="hover:text-sakhablue transition-colors py-2 px-3 rounded-full hover:bg-sakhablue-soft flex items-center gap-1.5 text-senared">
+          <i class="fa-solid fa-gamepad"></i> Mini Game
+        </a>
+      </nav>
+
+      <!-- Action Button -->
+      <div class="flex items-center gap-3">
+        <a href="https://youtube.com/@sakhasenaanimation?si=RRKF7Q9ypI3ssnjr" target="_blank" rel="noopener noreferrer" 
+           class="inline-flex items-center gap-2 bg-senared hover:bg-senared-dark text-white font-heading font-semibold px-4 sm:px-6 py-2.5 rounded-2xl shadow-bubbly-red hover:-translate-y-0.5 active:translate-y-1 transition duration-200 text-sm sm:text-base">
+          <i class="fa-brands fa-youtube text-lg"></i>
+          <span>Langganan</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== HERO SECTION ==================== -->
+  <section class="relative pt-10 pb-20 md:py-24 overflow-hidden">
+    <!-- Playful Floating SVG Elements in Background -->
+    <div class="absolute top-12 left-8 text-sunyellow text-4xl animate-float opacity-70 pointer-events-none select-none">⭐</div>
+    <div class="absolute top-1/4 right-12 text-sakhablue text-5xl animate-float-slow opacity-60 pointer-events-none select-none">🧩</div>
+    <div class="absolute bottom-16 left-1/4 text-mintgreen text-4xl animate-float opacity-70 pointer-events-none select-none">🎨</div>
+    <div class="absolute bottom-24 right-1/4 text-senared text-3xl animate-float-slow opacity-70 pointer-events-none select-none">🚀</div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Text & Headline -->
+        <div class="lg:col-span-7 text-center lg:text-left space-y-6">
+          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-100 text-amber-800 font-semibold text-sm border border-amber-300 shadow-sm animate-pulse-slow">
+            <span class="flex h-2.5 w-2.5 rounded-full bg-red-500"></span>
+            Kanal Animasi Anak Indonesia @sakhasenaanimation
+          </div>
+
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-800 tracking-tight leading-tight">
+            Petualangan Seru & Edukatif Bersama <span class="text-sakhablue">Sakha</span> dan <span class="text-senared">Sena!</span>
+          </h1>
+
+          <p class="text-lg sm:text-xl text-slate-600 font-medium max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+            Membantu anak balita & prasekolah belajar kebiasaan baik, kerja sama merapikan mainan, mengenal warna, dan nilai positif keluarga melalui animasi 3D yang hangat dan ceria.
+          </p>
+
+          <!-- CTAs -->
+          <div class="flex flex-wrap gap-4 justify-center lg:justify-start pt-3">
+            <a href="https://youtube.com/@sakhasenaanimation?si=RRKF7Q9ypI3ssnjr" target="_blank" rel="noopener noreferrer"
+               class="px-8 py-4 bg-senared hover:bg-senared-dark text-white rounded-2xl font-heading text-lg font-bold shadow-bubbly-red hover:-translate-y-1 transition duration-200 flex items-center gap-3">
+              <i class="fa-brands fa-youtube text-2xl"></i>
+              Tonton di YouTube
+            </a>
+
+            <a href="#video" 
+               class="px-7 py-4 bg-white hover:bg-slate-50 text-slate-800 border-2 border-slate-200 rounded-2xl font-heading text-lg font-bold shadow-bubbly hover:-translate-y-1 transition duration-200 flex items-center gap-2">
+              <i class="fa-solid fa-circle-play text-sakhablue"></i>
+              Lihat Episode
+            </a>
+          </div>
+
+          <!-- Trust Badges -->
+          <div class="pt-6 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-sm font-semibold text-slate-600">
+            <div class="flex items-center gap-2 bg-white/80 px-3 py-1.5 rounded-full border border-slate-200">
+              <span class="text-mintgreen text-lg">✓</span> 100% Konten Ramah Anak
+            </div>
+            <div class="flex items-center gap-2 bg-white/80 px-3 py-1.5 rounded-full border border-slate-200">
+              <span class="text-sunyellow text-lg">✓</span> Edukasi Kebiasaan Baik
+            </div>
+            <div class="flex items-center gap-2 bg-white/80 px-3 py-1.5 rounded-full border border-slate-200">
+              <span class="text-sakhablue text-lg">✓</span> Visual Animasi 3D Menarik
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Interactive Illustration Cards -->
+        <div class="lg:col-span-5 relative flex justify-center">
+          <div class="relative w-full max-w-md bg-white rounded-3xl p-6 sm:p-8 shadow-bubbly border-4 border-amber-300 transform rotate-1 hover:rotate-0 transition-transform duration-300">
+            
+            <!-- Floating Badge -->
+            <div class="absolute -top-5 -right-3 bg-sunyellow text-slate-900 font-heading font-bold text-sm px-4 py-2 rounded-2xl shadow-bubbly-yellow flex items-center gap-1.5 transform rotate-6">
+              <i class="fa-solid fa-crown text-amber-900"></i> Made for Kids
+            </div>
+
+            <!-- Visual Art / Character Representation -->
+            <div class="relative bg-gradient-to-b from-sky-100 to-indigo-50 rounded-2xl p-6 text-center border-2 border-dashed border-sky-300 overflow-hidden">
+              <div class="flex justify-center items-end gap-6 mb-4">
+                <!-- Sakha Avatar -->
+                <div class="flex flex-col items-center">
+                  <div class="w-24 h-24 rounded-full bg-gradient-to-b from-blue-400 to-blue-600 flex items-center justify-center text-4xl shadow-md border-4 border-white animate-float">
+                    👦
+                  </div>
+                  <span class="mt-2 font-heading font-bold text-sakhablue text-lg">Sakha</span>
+                  <span class="text-xs bg-sakhablue-soft text-sakhablue-dark px-2 py-0.5 rounded-full font-semibold">Hoodie Biru</span>
+                </div>
+
+                <!-- Sena Avatar -->
+                <div class="flex flex-col items-center">
+                  <div class="w-24 h-24 rounded-full bg-gradient-to-b from-red-400 to-red-600 flex items-center justify-center text-4xl shadow-md border-4 border-white animate-float-slow">
+                    🧒
+                  </div>
+                  <span class="mt-2 font-heading font-bold text-senared text-lg">Sena</span>
+                  <span class="text-xs bg-senared-soft text-senared-dark px-2 py-0.5 rounded-full font-semibold">Hoodie Merah</span>
+                </div>
+              </div>
+
+              <div class="bg-white/90 backdrop-blur-sm rounded-xl p-3 border border-sky-100 shadow-sm mt-3">
+                <p class="font-heading text-sm font-semibold text-slate-700">
+                  "Ayo rapikan mainan dan belajar hal seru bersama kami!" ✨
+                </p>
+              </div>
+            </div>
+
+            <!-- Mini Quick Action -->
+            <div class="mt-6 flex items-center justify-between bg-slate-50 p-3 rounded-2xl border border-slate-100">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-amber-400 text-white flex items-center justify-center text-lg font-bold">
+                  <i class="fa-solid fa-bell"></i>
+                </div>
+                <div>
+                  <h4 class="font-heading font-bold text-sm text-slate-800">Jangan Lewatkan!</h4>
+                  <p class="text-xs text-slate-500">Subscribe untuk episode baru</p>
+                </div>
+              </div>
+              <button onclick="triggerConfettiHero()" class="px-3 py-1.5 bg-mintgreen hover:bg-mintgreen-dark text-white rounded-xl font-heading text-xs font-bold transition">
+                🎉 Tepuk Tangan
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== KARAKTER UTAMA SECTION ==================== -->
+  <section id="karakter" class="py-20 bg-white border-y-4 border-sky-100 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+        <span class="px-4 py-1.5 rounded-full bg-sky-100 text-sakhablue font-heading font-bold text-sm uppercase tracking-wider">
+          Sahabat Petualang Cilik
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-800">
+          Kenalan Dengan Sakha & Sena
+        </h2>
+        <p class="text-slate-600 font-medium">
+          Dua bersaudara yang selalu kompak, saling membantu, dan siap mengajak si kecil berpetualang setiap hari.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        
+        <!-- Kartu Sakha -->
+        <div class="group bg-gradient-to-br from-blue-50 to-white rounded-3xl p-8 border-4 border-blue-200 shadow-bubbly hover:border-sakhablue transition duration-300">
+          <div class="flex items-start justify-between">
+            <div class="w-20 h-20 rounded-2xl bg-gradient-to-tr from-sakhablue to-blue-400 text-white flex items-center justify-center text-4xl shadow-bubbly-blue border-2 border-white">
+              👦
+            </div>
+            <span class="px-3 py-1 bg-sakhablue text-white font-heading font-bold text-xs rounded-full uppercase tracking-wide">
+              Kakak Cerdas
+            </span>
+          </div>
+
+          <div class="mt-6 space-y-3">
+            <h3 class="font-heading text-2xl font-bold text-slate-800 group-hover:text-sakhablue transition-colors">
+              Sakha
+            </h3>
+            <p class="text-slate-600 leading-relaxed font-medium">
+              Kakak yang bijaksana, gemar memakai hoodie biru kesayangannya, suka menyusun balok geometri, dan selalu membimbing adiknya untuk membereskan barang bersama-sama.
+            </p>
+
+            <!-- Ciri Khas -->
+            <div class="pt-2 flex flex-wrap gap-2 text-xs font-semibold">
+              <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">💙 Hoodie Biru</span>
+              <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">🧩 Suka Menyusun Balok</span>
+              <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">🤝 Suka Menolong</span>
+            </div>
+
+            <!-- Interaksi Card -->
+            <div class="pt-4 border-t border-blue-100 flex items-center justify-between">
+              <span class="text-xs text-slate-500 font-medium">Suara & Slogan Sakha:</span>
+              <button onclick="playGreeting('sakha')" class="text-sakhablue hover:text-sakhablue-dark font-heading font-bold text-sm flex items-center gap-1.5 focus:outline-none">
+                <i class="fa-solid fa-volume-high"></i> Sapa Sakha!
+              </button>
+            </div>
+            <div id="sakha-quote" class="hidden mt-2 p-3 bg-blue-100/70 text-blue-900 rounded-xl text-xs font-semibold animate-pulse-slow">
+              "Ayo rapikan satu persatu, pasti cepat selesai kalau kita bekerja sama!" ✨
+            </div>
+          </div>
+        </div>
+
+        <!-- Kartu Sena -->
+        <div class="group bg-gradient-to-br from-red-50 to-white rounded-3xl p-8 border-4 border-red-200 shadow-bubbly hover:border-senared transition duration-300">
+          <div class="flex items-start justify-between">
+            <div class="w-20 h-20 rounded-2xl bg-gradient-to-tr from-senared to-rose-400 text-white flex items-center justify-center text-4xl shadow-bubbly-red border-2 border-white">
+              🧒
+            </div>
+            <span class="px-3 py-1 bg-senared text-white font-heading font-bold text-xs rounded-full uppercase tracking-wide">
+              Adik Lincah
+            </span>
+          </div>
+
+          <div class="mt-6 space-y-3">
+            <h3 class="font-heading text-2xl font-bold text-slate-800 group-hover:text-senared transition-colors">
+              Sena
+            </h3>
+            <p class="text-slate-600 leading-relaxed font-medium">
+              Adik yang sangat lincah, selalu bersemangat dalam balutan hoodie merah, gemar bermain mobil-mobilan dan robot, serta cepat belajar hal baru dari sang kakak!
+            </p>
+
+            <!-- Ciri Khas -->
+            <div class="pt-2 flex flex-wrap gap-2 text-xs font-semibold">
+              <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full">❤️ Hoodie Merah</span>
+              <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full">🚗 Pecinta Mobil Mainan</span>
+              <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full">⚡ Penuh Energi</span>
+            </div>
+
+            <!-- Interaksi Card -->
+            <div class="pt-4 border-t border-red-100 flex items-center justify-between">
+              <span class="text-xs text-slate-500 font-medium">Suara & Slogan Sena:</span>
+              <button onclick="playGreeting('sena')" class="text-senared hover:text-senared-dark font-heading font-bold text-sm flex items-center gap-1.5 focus:outline-none">
+                <i class="fa-solid fa-volume-high"></i> Sapa Sena!
+              </button>
+            </div>
+            <div id="sena-quote" class="hidden mt-2 p-3 bg-red-100/70 text-red-900 rounded-xl text-xs font-semibold animate-pulse-slow">
+              "Horeee! Sena siap bantu Kakak, bola merah masuk ke kotak merah!" 🎈
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== VIDEO SHOWCASE SECTION ==================== -->
+  <section id="video" class="py-20 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto mb-14 space-y-3">
+        <span class="px-4 py-1.5 rounded-full bg-red-100 text-senared font-heading font-bold text-sm uppercase tracking-wider">
+          Episode YouTube Pilihan
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-800">
+          Tonton Episode Terbaru
+        </h2>
+        <p class="text-slate-600 font-medium">
+          Klik video untuk menonton langsung petualangan seru Sakha dan Sena.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Video Utama (Featured Main Video - Cleanup Challenge) -->
+        <div class="lg:col-span-8 bg-white rounded-3xl p-6 sm:p-7 border-4 border-amber-300 shadow-bubbly space-y-4">
+          <div class="relative w-full aspect-video rounded-2xl overflow-hidden bg-slate-900 shadow-inner group">
+            <!-- Responsive Iframe Embed -->
+            <iframe 
+              class="w-full h-full"
+              src="https://www.youtube-nocookie.com/embed/FFdsnyWuSWI?rel=0&modestbranding=1" 
+              title="Toy Room Mission: Cleanup Challenge! | Misi Merapikan Kamar Mainan Anak!" 
+              frameborder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+              allowfullscreen>
+            </iframe>
+          </div>
+
+          <div class="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <div class="flex items-center gap-2 mb-2">
+                <span class="px-3 py-1 bg-mintgreen-soft text-mintgreen-dark font-heading font-bold text-xs rounded-lg">
+                  ★ Rekomendasi Utama
+                </span>
+                <span class="text-xs text-slate-500 font-semibold">
+                  <i class="fa-regular fa-clock"></i> 3 Menit
+                </span>
+              </div>
+              <h3 class="font-heading text-xl sm:text-2xl font-bold text-slate-800 leading-snug">
+                Toy Room Mission: Cleanup Challenge! | Misi Merapikan Kamar Mainan Anak!
+              </h3>
+              <p class="text-slate-600 text-sm mt-1 leading-relaxed">
+                Kamar penuh mainan berserakan! Yuk ikuti Sakha & Sena memilah mainan sesuai warnanya (merah, biru, kuning) dan bekerja sama mengangkat boneka paus besar.
+              </p>
+            </div>
+
+            <a href="http://www.youtube.com/watch?v=FFdsnyWuSWI" target="_blank" rel="noopener noreferrer"
+               class="shrink-0 inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-5 py-3 rounded-2xl font-heading font-bold text-sm shadow-sm transition">
+              <i class="fa-brands fa-youtube text-lg"></i> Tonton di YouTube
+            </a>
+          </div>
+        </div>
+
+        <!-- Video 2 & Channel Card -->
+        <div class="lg:col-span-4 space-y-6">
+          
+          <!-- Hello Friends Video Card -->
+          <div class="bg-white rounded-3xl p-5 border-4 border-sky-200 shadow-bubbly hover:border-sakhablue transition duration-300">
+            <div class="relative w-full aspect-video rounded-2xl overflow-hidden bg-slate-900 shadow-inner">
+              <iframe 
+                class="w-full h-full"
+                src="https://www.youtube-nocookie.com/embed/yEqfqUGlgCE?rel=0" 
+                title="HELLO FRIENDS! Welcome to Sakha & Sena Channel" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                allowfullscreen>
+              </iframe>
+            </div>
+
+            <div class="mt-4 space-y-2">
+              <div class="flex items-center gap-2">
+                <span class="px-2.5 py-0.5 bg-sakhablue-soft text-sakhablue-dark font-heading font-bold text-xs rounded-md">
+                  Perkenalan
+                </span>
+                <span class="text-xs text-slate-500 font-medium">Durasi: 10 detik</span>
+              </div>
+              <h4 class="font-heading font-bold text-slate-800 text-base leading-snug">
+                HELLO FRIENDS! Welcome to Sakha & Sena Channel
+              </h4>
+              <p class="text-xs text-slate-500 leading-relaxed">
+                Sapaan hangat dari Sakha dan Sena untuk sahabat cilik di seluruh nusantara!
+              </p>
+            </div>
+          </div>
+
+          <!-- Channel Stats & Promo -->
+          <div class="bg-gradient-to-tr from-amber-400 to-sunyellow rounded-3xl p-6 text-slate-900 border-4 border-amber-300 shadow-bubbly space-y-4">
+            <div class="flex items-center gap-3">
+              <div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-senared text-2xl shadow-sm">
+                <i class="fa-solid fa-play"></i>
+              </div>
+              <div>
+                <h4 class="font-heading font-bold text-lg leading-tight">Dukung Kanal Kami!</h4>
+                <p class="text-xs text-amber-950 font-medium">Video edukasi baru setiap minggunya</p>
+              </div>
+            </div>
+
+            <p class="text-xs text-amber-950/80 leading-relaxed font-semibold">
+              Bantu kanal kami terus bertumbuh dan membagikan konten bermanfaat bagi balita Indonesia dengan menekan tombol Subscribe & Like.
+            </p>
+
+            <a href="https://youtube.com/@sakhasenaanimation?si=RRKF7Q9ypI3ssnjr?sub_confirmation=1" target="_blank" rel="noopener noreferrer"
+               class="w-full inline-flex items-center justify-center gap-2 bg-slate-900 hover:bg-slate-800 text-white font-heading font-bold py-3 px-4 rounded-xl shadow-md transition duration-200 text-sm">
+              <i class="fa-brands fa-youtube text-red-500"></i> Subscribe Sekarang
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== NILAI EDUKASI SECTION ==================== -->
+  <section id="edukasi" class="py-20 bg-amber-50/60 border-y-4 border-amber-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+        <span class="px-4 py-1.5 rounded-full bg-amber-200 text-amber-900 font-heading font-bold text-sm uppercase tracking-wider">
+          Pilar Pembelajaran Anak
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-800">
+          Nilai Edukasi Dalam Setiap Cerita
+        </h2>
+        <p class="text-slate-600 font-medium">
+          Dirancang untuk mendampingi masa emas perkembangan motorik, emosional, dan kognitif buah hati Anda.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Pillar 1 -->
+        <div class="bg-white rounded-3xl p-6 border-3 border-blue-100 shadow-bubbly hover:-translate-y-2 transition-transform duration-300">
+          <div class="w-14 h-14 rounded-2xl bg-sakhablue-soft text-sakhablue flex items-center justify-center text-2xl font-bold mb-4">
+            🧩
+          </div>
+          <h3 class="font-heading font-bold text-lg text-slate-800 mb-2">
+            Merapikan Mainan & Tanggung Jawab
+          </h3>
+          <p class="text-sm text-slate-600 leading-relaxed font-medium">
+            Mengajak anak mencintai kebersihan kamar sendiri tanpa paksaan melalui pendekatan petualangan misi seru.
+          </p>
+        </div>
+
+        <!-- Pillar 2 -->
+        <div class="bg-white rounded-3xl p-6 border-3 border-yellow-100 shadow-bubbly hover:-translate-y-2 transition-transform duration-300">
+          <div class="w-14 h-14 rounded-2xl bg-amber-50 text-sunyellow-dark flex items-center justify-center text-2xl font-bold mb-4">
+            🎨
+          </div>
+          <h3 class="font-heading font-bold text-lg text-slate-800 mb-2">
+            Mengenal Warna & Bentuk (*Color Sorting*)
+          </h3>
+          <p class="text-sm text-slate-600 leading-relaxed font-medium">
+            Melatih kemampuan kognitif mengklasifikasikan barang berdasarkan warna merah, kuning, dan biru.
+          </p>
+        </div>
+
+        <!-- Pillar 3 -->
+        <div class="bg-white rounded-3xl p-6 border-3 border-green-100 shadow-bubbly hover:-translate-y-2 transition-transform duration-300">
+          <div class="w-14 h-14 rounded-2xl bg-mintgreen-soft text-mintgreen-dark flex items-center justify-center text-2xl font-bold mb-4">
+            🛡️
+          </div>
+          <h3 class="font-heading font-bold text-lg text-slate-800 mb-2">
+            100% Konten Aman Ramah Anak
+          </h3>
+          <p class="text-sm text-slate-600 leading-relaxed font-medium">
+            Bebas dari adegan agresif, visual berlebihan, atau dialog kasar. Aman untuk tontonan mandiri si kecil.
+          </p>
+        </div>
+
+        <!-- Pillar 4 -->
+        <div class="bg-white rounded-3xl p-6 border-3 border-red-100 shadow-bubbly hover:-translate-y-2 transition-transform duration-300">
+          <div class="w-14 h-14 rounded-2xl bg-senared-soft text-senared flex items-center justify-center text-2xl font-bold mb-4">
+            🤝
+          </div>
+          <h3 class="font-heading font-bold text-lg text-slate-800 mb-2">
+            Kerja Sama Saudara (*Teamwork*)
+          </h3>
+          <p class="text-sm text-slate-600 leading-relaxed font-medium">
+            Menumbuhkan kehangatan hubungan kakak-beradik dalam menyelesaikan masalah bersama dengan saling menghargai.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== MINI GAME INTERAKTIF ==================== -->
+  <section id="minigame" class="py-20 relative bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="bg-gradient-to-br from-indigo-50 via-sky-50 to-amber-50 rounded-3xl p-6 sm:p-10 border-4 border-indigo-200 shadow-bubbly space-y-8 text-center">
+        
+        <div>
+          <span class="px-4 py-1.5 rounded-full bg-indigo-100 text-indigo-700 font-heading font-bold text-sm uppercase tracking-wider">
+            Game Edukasi Interaktif
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-800 mt-2">
+            Bantu Sakha & Sena Merapikan Mainan! 🧸
+          </h2>
+          <p class="text-slate-600 font-medium text-sm sm:text-base mt-2 max-w-xl mx-auto">
+            Klik atau seret mainan yang berserakan di bawah ke kotak penyimpanan warna yang sesuai!
+          </p>
+        </div>
+
+        <!-- Score & Status -->
+        <div class="flex items-center justify-center gap-6">
+          <div class="bg-white px-5 py-2.5 rounded-2xl shadow-sm border border-indigo-100 font-heading font-bold text-slate-700">
+            Mainan Tersisa: <span id="toys-left" class="text-senared font-extrabold text-xl">3</span>
+          </div>
+          <button onclick="resetGame()" class="text-xs font-heading font-bold text-indigo-600 hover:text-indigo-800 bg-white px-3 py-2 rounded-xl border border-indigo-100 hover:bg-indigo-50 transition">
+            <i class="fa-solid fa-rotate-right"></i> Ulangi Game
+          </button>
+        </div>
+
+        <!-- Kotak Target (Drop Zones) -->
+        <div class="grid grid-cols-3 gap-3 sm:gap-6">
+          
+          <!-- Kotak Merah -->
+          <div id="bin-red" 
+               ondragover="handleDragOver(event)" 
+               ondragleave="handleDragLeave(event)" 
+               ondrop="handleDrop(event, 'red')" 
+               onclick="handleBinClick('red')"
+               class="toy-slot bg-red-100/80 border-4 border-dashed border-senared rounded-3xl p-4 sm:p-6 flex flex-col items-center justify-center min-h-[140px] sm:min-h-[170px] transition-all cursor-pointer">
+            <div class="text-3xl sm:text-4xl mb-1">📦</div>
+            <span class="font-heading font-bold text-xs sm:text-base text-senared">Kotak Merah</span>
+            <span class="text-[10px] sm:text-xs text-slate-500 font-semibold" id="count-red">0 Mainan</span>
+          </div>
+
+          <!-- Kotak Biru -->
+          <div id="bin-blue" 
+               ondragover="handleDragOver(event)" 
+               ondragleave="handleDragLeave(event)" 
+               ondrop="handleDrop(event, 'blue')" 
+               onclick="handleBinClick('blue')"
+               class="toy-slot bg-blue-100/80 border-4 border-dashed border-sakhablue rounded-3xl p-4 sm:p-6 flex flex-col items-center justify-center min-h-[140px] sm:min-h-[170px] transition-all cursor-pointer">
+            <div class="text-3xl sm:text-4xl mb-1">📦</div>
+            <span class="font-heading font-bold text-xs sm:text-base text-sakhablue">Kotak Biru</span>
+            <span class="text-[10px] sm:text-xs text-slate-500 font-semibold" id="count-blue">0 Mainan</span>
+          </div>
+
+          <!-- Kotak Kuning -->
+          <div id="bin-yellow" 
+               ondragover="handleDragOver(event)" 
+               ondragleave="handleDragLeave(event)" 
+               ondrop="handleDrop(event, 'yellow')" 
+               onclick="handleBinClick('yellow')"
+               class="toy-slot bg-amber-100/80 border-4 border-dashed border-sunyellow-dark rounded-3xl p-4 sm:p-6 flex flex-col items-center justify-center min-h-[140px] sm:min-h-[170px] transition-all cursor-pointer">
+            <div class="text-3xl sm:text-4xl mb-1">📦</div>
+            <span class="font-heading font-bold text-xs sm:text-base text-amber-700">Kotak Kuning</span>
+            <span class="text-[10px] sm:text-xs text-slate-500 font-semibold" id="count-yellow">0 Mainan</span>
+          </div>
+
+        </div>
+
+        <!-- Mainan yang Berserakan (Draggable / Clickable) -->
+        <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border-2 border-indigo-100 min-h-[120px] flex items-center justify-center">
+          <div id="toys-container" class="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
+            
+            <!-- Toy 1: Balok Biru -->
+            <div id="toy-blue" draggable="true" ondragstart="handleDragStart(event, 'blue', 'toy-blue')" onclick="selectToy('blue', 'toy-blue')"
+                 class="toy-item cursor-grab active:cursor-grabbing bg-sky-100 border-2 border-sakhablue rounded-2xl p-3 sm:p-4 flex items-center gap-2 shadow-sm hover:scale-110 transition-transform">
+              <span class="text-3xl">🧱</span>
+              <span class="font-heading font-bold text-xs sm:text-sm text-sakhablue">Balok Biru</span>
+            </div>
+
+            <!-- Toy 2: Mobil Merah -->
+            <div id="toy-red" draggable="true" ondragstart="handleDragStart(event, 'red', 'toy-red')" onclick="selectToy('red', 'toy-red')"
+                 class="toy-item cursor-grab active:cursor-grabbing bg-red-100 border-2 border-senared rounded-2xl p-3 sm:p-4 flex items-center gap-2 shadow-sm hover:scale-110 transition-transform">
+              <span class="text-3xl">🚗</span>
+              <span class="font-heading font-bold text-xs sm:text-sm text-senared">Mobil Merah</span>
+            </div>
+
+            <!-- Toy 3: Bebek Kuning -->
+            <div id="toy-yellow" draggable="true" ondragstart="handleDragStart(event, 'yellow', 'toy-yellow')" onclick="selectToy('yellow', 'toy-yellow')"
+                 class="toy-item cursor-grab active:cursor-grabbing bg-amber-100 border-2 border-sunyellow-dark rounded-2xl p-3 sm:p-4 flex items-center gap-2 shadow-sm hover:scale-110 transition-transform">
+              <span class="text-3xl">🐥</span>
+              <span class="font-heading font-bold text-xs sm:text-sm text-amber-700">Bebek Kuning</span>
+            </div>
+
+          </div>
+
+          <!-- Pesan Menang / Selesai -->
+          <div id="game-complete-msg" class="hidden flex-col items-center justify-center py-2 space-y-2">
+            <span class="text-4xl animate-bounce">🎉 🏆 🌟</span>
+            <h4 class="font-heading font-bold text-xl text-mintgreen-dark">Horeee! Kamar Mainan Sudah Rapi!</h4>
+            <p class="text-slate-600 text-xs sm:text-sm">Kamu hebat seperti Sakha dan Sena!</p>
+          </div>
+        </div>
+
+        <p class="text-xs text-slate-400 italic">
+          💡 Tips: Di ponsel layar sentuh, cukup klik mainan lalu klik kotak yang warnanya cocok!
+        </p>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="bg-slate-900 text-white pt-16 pb-12 border-t-8 border-amber-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-slate-800">
+        
+        <!-- Brand Info -->
+        <div class="md:col-span-5 space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-sakhablue to-senared flex items-center justify-center text-white text-2xl font-bold">
+              <i class="fa-solid fa-shapes"></i>
+            </div>
+            <span class="font-heading text-2xl font-bold text-white tracking-tight">
+              Sakha<span class="text-senared">&</span>Sena Animation
+            </span>
+          </div>
+
+          <p class="text-slate-400 text-sm leading-relaxed max-w-sm">
+            Kanal edukasi anak berbasis animasi 3D yang mengajarkan kemandirian, kerja sama, dan keceriaan sejak usia dini.
+          </p>
+
+          <div class="pt-1 flex items-center gap-3">
+            <a href="https://youtube.com/@sakhasenaanimation?si=RRKF7Q9ypI3ssnjr" target="_blank" rel="noopener noreferrer" 
+               class="w-10 h-10 rounded-full bg-slate-800 hover:bg-senared text-slate-300 hover:text-white flex items-center justify-center transition-colors">
+              <i class="fa-brands fa-youtube text-lg"></i>
+            </a>
+            <span class="text-xs text-slate-400 font-medium">@sakhasenaanimation</span>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="md:col-span-3 space-y-3">
+          <h4 class="font-heading font-bold text-base text-amber-400 tracking-wider uppercase">Menu Navigasi</h4>
+          <ul class="space-y-2 text-sm text-slate-400 font-medium">
+            <li><a href="#" class="hover:text-white transition-colors">Beranda</a></li>
+            <li><a href="#karakter" class="hover:text-white transition-colors">Karakter Sakha & Sena</a></li>
+            <li><a href="#video" class="hover:text-white transition-colors">Video & Episode</a></li>
+            <li><a href="#edukasi" class="hover:text-white transition-colors">Nilai Edukasi</a></li>
+            <li><a href="#minigame" class="hover:text-white transition-colors">Mini Game Edukasi</a></li>
+          </ul>
+        </div>
+
+        <!-- Disclaimer & YouTube info -->
+        <div class="md:col-span-4 space-y-3">
+          <h4 class="font-heading font-bold text-base text-amber-400 tracking-wider uppercase">Untuk Orang Tua & Guru</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Seluruh konten dibuat dengan memprioritaskan keselamatan tontonan anak balita. Kami berkomitmen menyajikan konten visual edukatif yang menginspirasi kebaikan di rumah.
+          </p>
+          <div class="pt-2">
+            <a href="https://youtube.com/@sakhasenaanimation?si=RRKF7Q9ypI3ssnjr" target="_blank" rel="noopener noreferrer" 
+               class="inline-flex items-center gap-2 text-xs font-heading font-bold bg-slate-800 hover:bg-slate-700 text-amber-300 px-4 py-2.5 rounded-xl border border-slate-700 transition">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i> Kunjungi Channel YouTube Resmi
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Copyright -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+        <p>© 2026 Sakha Sena Animation. Seluruh Hak Cipta Dilindungi.</p>
+        <p class="text-slate-500">Dibuat penuh cinta untuk anak-anak Indonesia 🇮🇩</p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ==================== JAVASCRIPT LOGIC ==================== -->
+  <script>
+    // --- 1. Audio Greetings Toggle ---
+    function playGreeting(who) {
+      const sakhaQuote = document.getElementById('sakha-quote');
+      const senaQuote = document.getElementById('sena-quote');
+
+      if (who === 'sakha') {
+        sakhaQuote.classList.toggle('hidden');
+        if (!sakhaQuote.classList.contains('hidden')) {
+          confetti({
+            particleCount: 25,
+            spread: 50,
+            origin: { y: 0.6 }
+          });
+        }
+      } else {
+        senaQuote.classList.toggle('hidden');
+        if (!senaQuote.classList.contains('hidden')) {
+          confetti({
+            particleCount: 25,
+            spread: 50,
+            origin: { y: 0.6 }
+          });
+        }
+      }
+    }
+
+    // --- 2. Confetti Burst for Hero Button ---
+    function triggerConfettiHero() {
+      confetti({
+        particleCount: 70,
+        spread: 70,
+        origin: { y: 0.7 }
+      });
+    }
+
+    // --- 3. Interactive Mini Game: Color Sorting ---
+    let selectedToyData = null;
+    let toysRemaining = 3;
+    const sortedCounts = { red: 0, blue: 0, yellow: 0 };
+
+    function selectToy(color, elementId) {
+      // Remove active border from others
+      document.querySelectorAll('.toy-item').forEach(el => el.classList.remove('ring-4', 'ring-indigo-400'));
+      
+      const el = document.getElementById(elementId);
+      if (el) {
+        el.classList.add('ring-4', 'ring-indigo-400');
+        selectedToyData = { color, id: elementId };
+      }
+    }
+
+    function handleBinClick(binColor) {
+      if (!selectedToyData) return;
+      if (selectedToyData.color === binColor) {
+        processSuccessfulSort(selectedToyData.id, binColor);
+        selectedToyData = null;
+      } else {
+        shakeBin(binColor);
+      }
+    }
+
+    // Drag and Drop handlers
+    function handleDragStart(event, color, id) {
+      event.dataTransfer.setData('text/plain', JSON.stringify({ color, id }));
+    }
+
+    function handleDragOver(event) {
+      event.preventDefault();
+      event.currentTarget.classList.add('drag-over');
+    }
+
+    function handleDragLeave(event) {
+      event.currentTarget.classList.remove('drag-over');
+    }
+
+    function handleDrop(event, binColor) {
+      event.preventDefault();
+      event.currentTarget.classList.remove('drag-over');
+      
+      try {
+        const raw = event.dataTransfer.getData('text/plain');
+        if (!raw) return;
+        const data = JSON.parse(raw);
+        if (data.color === binColor) {
+          processSuccessfulSort(data.id, binColor);
+        } else {
+          shakeBin(binColor);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    function shakeBin(binColor) {
+      const bin = document.getElementById('bin-' + binColor);
+      if (bin) {
+        bin.classList.add('animate-bounce');
+        setTimeout(() => bin.classList.remove('animate-bounce'), 500);
+      }
+    }
+
+    function processSuccessfulSort(toyId, color) {
+      const toyEl = document.getElementById(toyId);
+      if (!toyEl) return;
+      
+      toyEl.remove();
+      sortedCounts[color]++;
+      toysRemaining--;
+
+      // Update counters
+      const countEl = document.getElementById('count-' + color);
+      if (countEl) countEl.innerText = sortedCounts[color] + ' Mainan';
+
+      const leftEl = document.getElementById('toys-left');
+      if (leftEl) leftEl.innerText = toysRemaining;
+
+      // Small confetti for match
+      confetti({
+        particleCount: 20,
+        spread: 40,
+        origin: { y: 0.8 }
+      });
+
+      // Check win condition
+      if (toysRemaining <= 0) {
+        document.getElementById('game-complete-msg').classList.remove('hidden');
+        document.getElementById('game-complete-msg').classList.add('flex');
+        
+        // Grand celebration confetti
+        setTimeout(() => {
+          confetti({
+            particleCount: 120,
+            spread: 90,
+            origin: { y: 0.6 }
+          });
+        }, 300);
+      }
+    }
+
+    function resetGame() {
+      toysRemaining = 3;
+      sortedCounts.red = 0;
+      sortedCounts.blue = 0;
+      sortedCounts.yellow = 0;
+      selectedToyData = null;
+
+      document.getElementById('toys-left').innerText = '3';
+      document.getElementById('count-red').innerText = '0 Mainan';
+      document.getElementById('count-blue').innerText = '0 Mainan';
+      document.getElementById('count-yellow').innerText = '0 Mainan';
+      
+      document.getElementById('game-complete-msg').classList.add('hidden');
+      document.getElementById('game-complete-msg').classList.remove('flex');
+
+      // Re-populate toys container
+      const container = document.getElementById('toys-container');
+      container.innerHTML = `
+        <div id="toy-blue" draggable="true" ondragstart="handleDragStart(event, 'blue', 'toy-blue')" onclick="selectToy('blue', 'toy-blue')"
+             class="toy-item cursor-grab active:cursor-grabbing bg-sky-100 border-2 border-sakhablue rounded-2xl p-3 sm:p-4 flex items-center gap-2 shadow-sm hover:scale-110 transition-transform">
+          <span class="text-3xl">🧱</span>
+          <span class="font-heading font-bold text-xs sm:text-sm text-sakhablue">Balok Biru</span>
+        </div>
+        <div id="toy-red" draggable="true" ondragstart="handleDragStart(event, 'red', 'toy-red')" onclick="selectToy('red', 'toy-red')"
+             class="toy-item cursor-grab active:cursor-grabbing bg-red-100 border-2 border-senared rounded-2xl p-3 sm:p-4 flex items-center gap-2 shadow-sm hover:scale-110 transition-transform">
+          <span class="text-3xl">🚗</span>
+          <span class="font-heading font-bold text-xs sm:text-sm text-senared">Mobil Merah</span>
+        </div>
+        <div id="toy-yellow" draggable="true" ondragstart="handleDragStart(event, 'yellow', 'toy-yellow')" onclick="selectToy('yellow', 'toy-yellow')"
+             class="toy-item cursor-grab active:cursor-grabbing bg-amber-100 border-2 border-sunyellow-dark rounded-2xl p-3 sm:p-4 flex items-center gap-2 shadow-sm hover:scale-110 transition-transform">
+          <span class="text-3xl">🐥</span>
+          <span class="font-heading font-bold text-xs sm:text-sm text-amber-700">Bebek Kuning</span>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>
+```
